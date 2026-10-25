@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="A private, browser-based school homework and class work saver.">
+  <title>School Homework Saver</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lucide-static@0.468.0/font/lucide.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="#home" aria-label="School Homework Saver home">
+      <span class="brand-mark"><i class="icon-book-open"></i></span>
+      <span>School Homework Saver</span>
+    </a>
+    <button class="menu-toggle icon-button" id="menuToggle" type="button" aria-label="Open navigation" aria-expanded="false"><i class="icon-menu"></i></button>
+    <nav class="main-nav" id="mainNav">
+      <a href="#home">Home</a><a href="#add-record">Add Record</a><a href="#records">All Records</a><a href="#today">Today's Homework</a><a href="#subjects">Subjects</a><a href="#about">About</a>
+    </nav>
+    <button class="theme-toggle icon-button" id="themeToggle" type="button" aria-label="Switch to dark mode" title="Toggle dark mode"><i class="icon-moon"></i></button>
+  </header>
+
+  <main>
+    <section class="hero" id="home">
+      <div class="hero-copy">
+        <p class="eyebrow"><span></span> Your school day, kept together</p>
+        <h1>Homework, without the <em>hunt.</em></h1>
+        <p class="hero-subtitle">Save, manage and download your daily class work and homework records in one calm, organized space.</p>
+        <div class="hero-actions"><a class="button button-primary" href="#add-record"><i class="icon-plus"></i> Add Daily Record</a><a class="button button-secondary" href="#records"><i class="icon-layout-list"></i> View Records</a></div>
+      </div>
+      <div class="hero-note" aria-hidden="true"><span class="note-pin"><i class="icon-pin"></i></span><p>Today’s notes<br><strong>ready when you are</strong></p><span class="note-line"></span><span class="note-check"><i class="icon-check"></i></span></div>
+    </section>
+
+    <section class="stats-grid" aria-label="Record statistics">
+      <article class="stat-card"><span class="stat-icon coral"><i class="icon-notebook-pen"></i></span><div><strong id="totalRecords">0</strong><span>Total Records</span></div></article>
+      <article class="stat-card"><span class="stat-icon mint"><i class="icon-calendar-check"></i></span><div><strong id="todayRecords">0</strong><span>Today's Records</span></div></article>
+      <article class="stat-card"><span class="stat-icon gold"><i class="icon-house"></i></span><div><strong id="totalHomework">0</strong><span>Total Homework</span></div></article>
+      <article class="stat-card"><span class="stat-icon blue"><i class="icon-clipboard-list"></i></span><div><strong id="totalClasswork">0</strong><span>Total Class Work</span></div></article>
+    </section>
+
+    <section class="content-section form-section" id="add-record">
+      <div class="section-heading"><div><p class="eyebrow">Keep a daily log</p><h2 id="formTitle">Add Daily Record</h2></div><span class="section-number">01</span></div>
+      <form id="recordForm" class="record-form">
+        <div class="form-grid three-col">
+          <label>Student Name <input id="studentName" name="studentName" type="text" placeholder="Enter student name" required></label>
+          <label>Class <input id="studentClass" name="studentClass" type="text" placeholder="e.g. 7-A"></label>
+          <label>Roll Number <input id="rollNumber" name="rollNumber" type="number" min="0" placeholder="Enter roll number"></label>
+        </div>
+        <div class="form-grid four-col">
+          <label>Date <input id="recordDate" name="recordDate" type="date" required></label>
+          <label>Day <input id="recordDay" name="recordDay" type="text" readonly></label>
+          <label>Teacher Name <input id="teacherName" name="teacherName" type="text" placeholder="Enter teacher name"></label>
+          <label>Subject <select id="subject" name="subject" required></select></label>
+        </div>
+        <label id="customSubjectWrap" class="custom-subject hidden">Enter Subject Name <input id="customSubject" type="text" placeholder="Type a subject name"></label>
+        <div class="form-grid work-grid">
+          <label>Class Work <textarea id="classWork" name="classWork" placeholder="Enter today's class work..."></textarea></label>
+          <label>Home Work <textarea id="homeWork" name="homeWork" placeholder="Enter today's homework..."></textarea></label>
+        </div>
+        <div class="form-footer"><p><i class="icon-lock-keyhole"></i> Your records stay in this browser.</p><div><button class="button button-ghost hidden" type="button" id="cancelEdit">Cancel Edit</button><button class="button button-primary" type="submit" id="saveButton"><i class="icon-plus"></i> Save Daily Record</button></div></div>
+      </form>
+    </section>
+
+    <section class="content-section" id="today"><div class="section-heading"><div><p class="eyebrow">A quick look</p><h2>Today's Homework</h2></div><span class="section-number">02</span></div><div id="todayList" class="today-list"></div></section>
+
+    <section class="content-section records-section" id="records">
+      <div class="section-heading"><div><p class="eyebrow">Your archive</p><h2>All Records</h2></div><div class="section-tools"><button class="button button-outline" id="exportCsv" type="button"><i class="icon-download"></i> Export CSV</button><label class="button button-outline import-label" for="importCsv"><i class="icon-upload"></i> Import CSV</label><input id="importCsv" type="file" accept=".csv,text/csv" hidden></div></div>
+      <div class="filters"><label class="search-field"><i class="icon-search"></i><input id="searchInput" type="search" placeholder="Search student, subject, homework..."></label><select id="classFilter"><option value="">All Classes</option></select><select id="subjectFilter"><option value="">All Subjects</option></select><select id="teacherFilter"><option value="">All Teachers</option></select><input id="dateFilter" type="date" aria-label="Filter by date"><button id="clearFilters" class="button button-quiet" type="button">Clear Filters</button></div>
+      <div class="active-filter" id="activeFilter"></div><div id="recordsList" class="records-list"></div>
+    </section>
+
+    <section class="content-section subjects-section" id="subjects"><div class="section-heading"><div><p class="eyebrow">Browse by subject</p><h2>Subject Sections</h2></div><span class="section-number">04</span></div><div id="subjectChips" class="subject-chips"></div></section>
+
+    <section class="about-band" id="about"><div><p class="eyebrow">Made for everyday school life</p><h2>Simple enough for a busy morning.</h2></div><p>School Homework Saver keeps your notes close, searchable, printable and ready to share. There is no account and no server: your records live in your browser.</p></section>
+  </main>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"><i class="icon-check-circle-2"></i><span></span></div>
+  <div class="modal-backdrop hidden" id="deleteModal"><div class="modal" role="dialog" aria-modal="true" aria-labelledby="deleteTitle"><span class="modal-icon"><i class="icon-trash-2"></i></span><h2 id="deleteTitle">Delete this record?</h2><p>Are you sure you want to delete this record? This cannot be undone.</p><div class="modal-actions"><button class="button button-quiet" id="cancelDelete" type="button">Cancel</button><button class="button button-danger" id="confirmDelete" type="button">Delete Record</button></div></div></div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
